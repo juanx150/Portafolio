@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('category', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo', 60)->unique();
-            $table->string('nombre', 60)->unique();
-            
-            $table->foreignId('user_id');
+            $table->string('codigo');
+            $table->string('nombre');
+            $table->bigInteger('n_id')->unsigned();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
 
+            $table->foreign('n_id')->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

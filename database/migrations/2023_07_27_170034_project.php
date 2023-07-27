@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('project', function (Blueprint $table) {
             $table->id();
-            $table->string('autor', 60)->unique();
-            $table->string('nombreparticipantes',6000);
-            $table->string('descripcion', 60);
+            $table->string('foto')->nullable();
+            $table->bigInteger('n_id')->unsigned();
+            $table->string('propietario', 60);
+            $table->string('nombre', 100);
+            $table->text('descripcion');
+            $table->string('tecnologias', 200);
             $table->string('fechainicio', 60);
             $table->string('fechafinal', 60);
-            
-
-            $table->foreignId('category_id');
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('category')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-           
+
+            $table->foreign('n_id')->references('id')->on('category')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
