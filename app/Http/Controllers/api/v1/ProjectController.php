@@ -13,7 +13,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = project::orderBy('nombre', 'asc')->get();
+ 
+        return response()->json(['data' => $projects], 200);
+
     }
 
     /**
@@ -21,7 +24,9 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $project = project::create($request->all());
+ 
+ return response()->json(['data' => $project], 201);
     }
 
     /**
@@ -29,7 +34,7 @@ class ProjectController extends Controller
      */
     public function show(project $project)
     {
-        //
+        return response()->json(['data' => $project], 200);
     }
 
     /**
@@ -37,7 +42,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, project $project)
     {
-        //
+        $project->update($request->all());
+        return response()->json(['data' => $project], 200);
     }
 
     /**
@@ -45,6 +51,8 @@ class ProjectController extends Controller
      */
     public function destroy(project $project)
     {
-        //
+        $project->delete();
+        return response(null, 204);
+
     }
 }

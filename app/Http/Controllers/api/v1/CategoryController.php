@@ -13,7 +13,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = category::orderBy('nombre', 'asc')->get();
+ 
+        return response()->json(['data' => $category], 200);
+       
     }
 
     /**
@@ -21,7 +24,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = category::create($request->all());
+        return response()->json(['data' => $category], 201);
     }
 
     /**
@@ -29,7 +33,7 @@ class CategoryController extends Controller
      */
     public function show(category $category)
     {
-        //
+        return response()->json(['data' => $category], 200);
     }
 
     /**
@@ -37,7 +41,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, category $category)
     {
-        //
+        $category->update($request->all());
+        return response()->json(['data' => $category], 200);
     }
 
     /**
@@ -45,6 +50,7 @@ class CategoryController extends Controller
      */
     public function destroy(category $category)
     {
-        //
+        $category->delete();
+        return response(null, 204);
     }
 }
