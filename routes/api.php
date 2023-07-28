@@ -5,9 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\CategoryController;
 use App\Http\Controllers\api\v1\ProjectController;
 use App\Http\Controllers\api\v1\CommentsController;
-
-
-
+use App\Http\Controllers\api\v1\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +26,7 @@ Route::post('/v1/login',
     [App\Http\Controllers\api\v1\AuthController::class, 
     'logout'])->name('api.logout');
    });
-    
+Route::apiResource('v1/user',UsersController::class);
 Route::apiResource('v1/category', CategoryController::class);
 Route::apiResource('v1/project', ProjectController::class);
 Route::apiResource('v1/comments', CommentsController::class);
