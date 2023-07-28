@@ -25,8 +25,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             "codigo" => "required|min:3",
-            "nombre" => "required|min:2|max:20",
-            "expiration" => "nullable|date|after:today",
+            "nombre" => "required|min:2",
             "n_id" => "required|exists:users,id"
         ];
     }
