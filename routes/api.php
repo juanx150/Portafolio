@@ -19,6 +19,16 @@ use App\Http\Controllers\api\v1\CommentsController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('/v1/login', 
+ [App\Http\Controllers\api\v1\AuthController::class,
+ 'login'])->name('api.login');
+
+ Route::middleware(['auth:sanctum'])->group(function() { 
+    Route::post('/v1/logout', 
+    [App\Http\Controllers\api\v1\AuthController::class, 
+    'logout'])->name('api.logout');
+   });
+    
 Route::apiResource('v1/category', CategoryController::class);
 Route::apiResource('v1/project', ProjectController::class);
 Route::apiResource('v1/comments', CommentsController::class);
