@@ -9,14 +9,7 @@ class project extends Model
 {
     use HasFactory;
     protected $fillable = [
-    'foto', 
-    'propietario', 
-    'nombre',
-    'descripcion',
-    'tecnologias',
-    'fechainicio',
-    'fechafinal', 
-    'n_id', 
+
     ];
     
     public function owner()

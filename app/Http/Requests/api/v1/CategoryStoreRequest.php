@@ -3,6 +3,8 @@
 namespace App\Http\Requests\api\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class CategoryStoreRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class CategoryStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,16 @@ class CategoryStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "codigo" => "required|min:3",
+            "nombre" => "required|min:2|max:20",
+            "expiration" => "nullable|date|after:today",
+            "n_id" => "required|exists:users,id"
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+    throw new HttpResponseException(response()->json($validator->errors(), 
+    422));
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Requests\api\v1;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class CommentsStoreRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class CommentsStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,16 @@ class CommentsStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+        "mensaje" => "required|min:3",
+        "autor" => "required|min:2",
+        "fechapublicacion" => "required|min:2",
+        "n_id" => "required|exists:users,id"
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+    throw new HttpResponseException(response()->json($validator->errors(), 
+    422));
     }
 }
