@@ -5,6 +5,8 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\api\v1\UsersStoreRequest;
+use App\Http\Requests\api\v1\UsersUpdateRequest;
 
 class UsersController extends Controller
 {
@@ -13,15 +15,19 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::orderBy('name', 'asc')->get();
+ 
+        return response()->json(['data' => $user], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UsersStoreRequest $request)
     {
-        //
+        $user = User::create($request->all());
+ 
+        return response()->json(['data' => $user], 201);
     }
 
     /**
@@ -29,15 +35,16 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return response()->json(['data' => $user], 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UsersUpdateRequest $request, User $user)
     {
-        //
+        $user->update($request->all());
+        return response()->json(['data' => $user], 200);
     }
 
     /**
@@ -45,6 +52,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response(null, 204);
     }
 }
